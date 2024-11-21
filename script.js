@@ -1,72 +1,73 @@
-//your JS code here. If required.
+// Select HTML elements
 const input = document.querySelector("#ip");
 const btn = document.querySelector("#btn");
 const output = document.querySelector("#output");
 
+// Add click event listener to the button
 btn.addEventListener("click", () => {
-    const number = parseInt(input.value);
+    const number = parseFloat(input.value);
 
-    if (isNaN(number)){
-        output.innerText = `Please enter a Valid number`;
-        return
+    // Check if the input is valid
+    if (isNaN(number)) {
+        output.textContent = "Please enter a valid number.";
+        return;
     }
 
-    createPromise(number)
-        .then((result) => multiply(result))
-        .then((result) => substraction(result))
-        .then((result) => division(result) )
-        .then((result) => addition(result))
-        .catch((err) => {
-            output.innerText =`Error: ${err}`
-        })
-})
-
-
-function createPromise(number){
-    return new Promise((resolve) =>{
-        setTimeout(()=>{
-            output.innerText = `Result:${number}`;
+    // Start the promise chain
+    new Promise((resolve) => {
+        setTimeout(() => {
+            output.textContent = `Result: ${number}`;
             resolve(number);
-        },2000)
-    });
-}
-
-function multiply(number){
-    return new Promise((resolve) => {
-        setTimeout(()=>{
-            const mul = number *2;
-            output.innerText =`Result:${mul}`;
-            resolve(mul);
-        },1000)
+        }, 2000);
     })
-}
-
-function substraction(number){
-    return new Promise((resolve) =>{
-        setTimeout(()=>{
-            const subtract = number - 3;
-            output.innerText =`Result:${subtract}`;
-            resolve(subtract)
-        },1000)
-    })
-}
-
-function division(number){
-    return new Promise((resolve) =>{
-        setTimeout(()=>{
-            const division = number/2;
-            output.innerText =`Result:${division}`;
-            resolve(division)
-        },1000)
-    })
-}
-
-function addition(number){
-    return new Promise((resolve) =>{
-        setTimeout(()=>{
-            const addition = number + 10;
-            output.innerText =`Result:${addition}`;
-            resolve(addition)
-        },1000)
-    })
-}
+        .then((num) => {
+            // Multiply the number by 2
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const result = num * 2;
+                    output.textContent = `Result: ${result}`;
+                    resolve(result);
+                }, 1000);
+            });
+        })
+        .then((num) => {
+            // Subtract 3 from the number
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const result = num - 3;
+                    output.textContent = `Result: ${result}`;
+                    resolve(result);
+                }, 1000);
+            });
+        })
+        .then((num) => {
+            // Divide the number by 2
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const result = num / 2;
+                    output.textContent = `Result: ${result}`;
+                    resolve(result);
+                }, 1000);
+            });
+        })
+        .then((num) => {
+            // Add 10 to the number
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const result = num + 10;
+                    output.textContent = `Result: ${result}`;
+                    resolve(result);
+                }, 1000);
+            });
+        })
+        .then((finalResult) => {
+            // Update the final result
+            setTimeout(() => {
+                output.textContent = `Final Result: ${finalResult}`;
+            }, 1000);
+        })
+        .catch((error) => {
+            // Handle any potential errors
+            output.textContent = `Error: ${error}`;
+        });
+});
