@@ -4,7 +4,7 @@ const btn = document.querySelector("#btn");
 const output = document.querySelector("#output");
 
 btn.addEventListener("click", () => {
-    const number = parseInt(input.value);
+    const number = parseFloat(input.value);
 
     if (isNaN(number)){
         output.innerText = `Please enter a Valid number`;
